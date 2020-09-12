@@ -26,8 +26,6 @@ object SuspiciousActivity extends App {
 
   val inputDF: DataFrame = sparkSession
     .readStream.schema(schema)
-    //.option("maxFilesPerTrigger", 3)
-
     .format("json")
     .json("src/main/resources/bet_source/*")
     .withWatermark("event_time", "5 seconds")
@@ -48,15 +46,10 @@ object SuspiciousActivity extends App {
 
   suspiciousDF
     .writeStream
-    //.trigger(Trigger.ProcessingTime("2 seconds"))
     .outputMode(OutputMode.Append())
     .format("console")
     .option("numRows", 10)
     .option("truncate", "false")
-    //.option("maxFilesPerTrigger", 1)
     .start()
-    //.processAllAvailable()
     .awaitTermination()
-
-  //sparkSession.stop()
 }
