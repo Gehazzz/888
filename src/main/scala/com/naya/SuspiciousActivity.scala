@@ -1,7 +1,5 @@
 package com.naya
 
-import java.time.LocalDateTime
-
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.{OutputMode, Trigger}

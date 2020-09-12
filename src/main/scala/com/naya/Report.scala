@@ -120,6 +120,7 @@ object Report extends App {
     .drop($"event_time")
 
   var result = inputDFReport.join(inputDFOverall, "prev_window")
+    .withColumnRenamed("prev_window", "window")
 
   result
     .writeStream
