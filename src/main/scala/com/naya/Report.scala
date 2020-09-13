@@ -35,13 +35,13 @@ object Report extends App {
     .readStream.schema(schema)
     .format("json")
     .json("src/main/resources/bet_source/*")
-    .withWatermark("event_time", "5 seconds")
+    .withWatermark("event_time", "10 seconds")
 
   val inputDFOverallPreCalculation: DataFrame = sparkSession
     .readStream.schema(schema)
     .format("json")
     .json("src/main/resources/bet_source/*")
-    .withWatermark("event_time", "5 seconds")
+    .withWatermark("event_time", "10 seconds")
 
   val inputDFReportToWrite = inputDFReportPreCalculation
     .withColumn("win", when($"currency_code".equalTo("EUR"), $"win".divide(1.1)))
